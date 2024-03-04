@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:home/models/theme_manager.dart';
+import '../models/theme_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../../models/dog_model.dart';
@@ -38,14 +38,38 @@ class _MyHomePageState extends State<ThongBao> {
               String imageUrl,
               double minLifeExpectancy,
               double maxLifeExpectancy,
-              double trainability
+              double trainability,
+              double maxHeighMale,
+              double minHeightMale,
+              double maxHeightFemale,
+              double minHeightFemale,
+              double energy,
+              double maxWeightFemale,
+              double maxWeightMale,
+              double minWeightFemale,
+              double minWeightMale,
+              double goodWithChildren,
+              double goodWithOtherDog,
+              double playfullness
               ){
       final newDog = Dog(
       name: name, 
       imageUrl: imageUrl, 
       minLifeExpectancy: minLifeExpectancy, 
       maxLifeExpectancy: maxLifeExpectancy,
-      trainability: trainability
+      trainability: trainability,
+      maxHeighMale: maxHeighMale,
+      minHeightMale: minHeightMale,
+      maxHeightFemale: maxHeightFemale,
+      minHeightFemale: minHeightFemale,
+      energy: energy,
+      maxWeightFemale: maxWeightFemale,
+      maxWeightMale: maxWeightMale,
+      minWeightFemale: minWeightFemale,
+      minWeightMale: minWeightMale,
+      goodWithChildren: goodWithChildren,
+      goodWithOtherDog: goodWithOtherDog,
+      playfulness: playfullness
       ); 
 
   }
@@ -89,6 +113,18 @@ Future<void> fetchData() async {
           minLifeExpectancy: double.parse(jsonData[0]['min_life_expectancy'].toString()),
           maxLifeExpectancy: double.parse(jsonData[0]['max_life_expectancy'].toString()),
           trainability: double.parse(jsonData[0]['trainability'].toString()),
+          maxHeighMale: double.parse(jsonData[0]['max_height_male'].toString()),
+          minHeightMale: double.parse(jsonData[0]['min_height_male'].toString()),
+          maxHeightFemale: double.parse(jsonData[0]['max_height_female'].toString()),
+          minHeightFemale: double.parse(jsonData[0]['min_height_female'].toString()),
+          energy: double.parse(jsonData[0]['energy'].toString()),
+          minWeightFemale: double.parse(jsonData[0]['min_weight_female'].toString()),
+          maxWeightFemale: double.parse(jsonData[0]['max_weight_female'].toString()),
+          minWeightMale: double.parse(jsonData[0]['min_weight_male'].toString()),
+          maxWeightMale: double.parse(jsonData[0]['max_weight_male'].toString()),
+          goodWithChildren: double.parse(jsonData[0]['good_with_children'].toString()),
+          goodWithOtherDog: double.parse(jsonData[0]['good_with_other_dogs'].toString()),
+          playfulness: double.parse(jsonData[0]['playfulness'].toString())
         );
         setState(() {
           _dogs.add(dog);

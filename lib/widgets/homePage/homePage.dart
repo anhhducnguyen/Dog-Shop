@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:home/models/search.dart';
 import 'package:home/models/theme_manager.dart';
+import 'package:home/pages/dog_infor.dart';
 import 'package:home/pages/thongBao.dart';
 import 'package:home/widgets/components/myBottom.dart';
 import 'package:home/widgets/homePage/banner.dart';
@@ -45,14 +46,38 @@ class _MyHomePageState extends State<HomePage> {
               String imageUrl,
               double minLifeExpectancy,
               double maxLifeExpectancy,
-              double trainability
+              double trainability,
+              double maxHeighMale,
+              double minHeightMale,
+              double maxHeightFemale,
+              double minHeightFemale,
+              double energy,
+              double maxWeightFemale,
+              double maxWeightMale,
+              double minWeightFemale,
+              double minWeightMale,
+              double goodWithChildren,
+              double goodWithOtherDog,
+              double playfulness,
               ){
       final newDog = Dog(
       name: name, 
       imageUrl: imageUrl, 
       minLifeExpectancy: minLifeExpectancy, 
       maxLifeExpectancy: maxLifeExpectancy,
-      trainability: trainability
+      trainability: trainability,
+      maxHeighMale: maxHeighMale,
+      minHeightMale: minHeightMale,
+      maxHeightFemale: maxHeightFemale,
+      minHeightFemale: minHeightFemale,
+      energy: energy,
+      maxWeightFemale: maxWeightFemale,
+      maxWeightMale: maxWeightMale,
+      minWeightFemale: minWeightFemale,
+      minWeightMale: minWeightMale,
+      goodWithChildren: goodWithChildren,
+      goodWithOtherDog: goodWithOtherDog,
+      playfulness: playfulness
       );   
   }
   Future<void> fetchData() async {
@@ -93,6 +118,18 @@ class _MyHomePageState extends State<HomePage> {
           minLifeExpectancy: double.parse(jsonData[0]['min_life_expectancy'].toString()),
           maxLifeExpectancy: double.parse(jsonData[0]['max_life_expectancy'].toString()),
           trainability: double.parse(jsonData[0]['trainability'].toString()),
+          maxHeighMale: double.parse(jsonData[0]['max_height_male'].toString()),
+          minHeightMale: double.parse(jsonData[0]['min_height_male'].toString()),
+          maxHeightFemale: double.parse(jsonData[0]['max_height_female'].toString()),
+          minHeightFemale: double.parse(jsonData[0]['min_height_female'].toString()),
+          energy: double.parse(jsonData[0]['energy'].toString()),
+          minWeightFemale: double.parse(jsonData[0]['min_weight_female'].toString()),
+          maxWeightFemale: double.parse(jsonData[0]['max_weight_female'].toString()),
+          minWeightMale: double.parse(jsonData[0]['min_weight_male'].toString()),
+          maxWeightMale: double.parse(jsonData[0]['max_weight_male'].toString()),
+          goodWithChildren: double.parse(jsonData[0]['good_with_children'].toString()),
+          goodWithOtherDog: double.parse(jsonData[0]['good_with_other_dogs'].toString()),
+          playfulness: double.parse(jsonData[0]['playfulness'].toString())
         );
         setState(() {
           _dogs.add(dog);
@@ -219,69 +256,72 @@ class _MyHomePageState extends State<HomePage> {
                       return Padding(
                         // padding: EdgeInsets.only(bottom: 10),
                         padding: const EdgeInsets.all(5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            // color: Colors.white,
-                            color: getLogoutButtonColor(context, isDarkMode),
-                            borderRadius: BorderRadius.circular(6), // Điều chỉnh giá trị để làm tròn các góc
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: const Offset(0, 2), // Điều chỉnh vị trí của đổ bóng
-                              ),
-                            ],
-                          ),
-                          // padding: EdgeInsets.all(10),
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-
-                          child: Row(
-                            children: [
-                              // CircleAvatar(
-                              //   radius: 50,
-                              //   backgroundImage: NetworkImage(dog.imageUrl),
-                              //   backgroundColor: Colors.grey,
-                              // ),
-                              Container(
-                                width: 100, // Chiều rộng mong muốn
-                                height: 100, // Chiều cao mong muốn
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10), // Đặt bán kính bo tròn
-                                  image: DecorationImage(
-                                    image: NetworkImage(dog.imageUrl),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  color: Colors.grey, // Màu nền khi hình ảnh không có sẵn
+                        child: InkWell(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(dog: dog ,))),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              // color: Colors.white,
+                              color: getLogoutButtonColor(context, isDarkMode),
+                              borderRadius: BorderRadius.circular(6), // Điều chỉnh giá trị để làm tròn các góc
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 2), // Điều chỉnh vị trí của đổ bóng
                                 ),
-                              ),
-                              const SizedBox(width: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    dog.name,
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green[800],
+                              ],
+                            ),
+                            // padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          
+                            child: Row(
+                              children: [
+                                // CircleAvatar(
+                                //   radius: 50,
+                                //   backgroundImage: NetworkImage(dog.imageUrl),
+                                //   backgroundColor: Colors.grey,
+                                // ),
+                                Container(
+                                  width: 100, // Chiều rộng mong muốn
+                                  height: 100, // Chiều cao mong muốn
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10), // Đặt bán kính bo tròn
+                                    image: DecorationImage(
+                                      image: NetworkImage(dog.imageUrl),
+                                      fit: BoxFit.cover,
                                     ),
+                                    color: Colors.grey, // Màu nền khi hình ảnh không có sẵn
                                   ),
-                                  const SizedBox(height: 3),
-                                  Text('Life span: ${dog.minLifeExpectancy} - ${dog.maxLifeExpectancy} year',
-                                    style: TextStyle(
-                                      fontSize: fontSize,
+                                ),
+                                const SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      dog.name,
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green[800],
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 3),
-                                  Text('Trainability: ${dog.trainability} / 5.0', 
-                                    style: TextStyle(
-                                      fontSize: fontSize,
+                                    const SizedBox(height: 3),
+                                    Text('Life span: ${dog.minLifeExpectancy} - ${dog.maxLifeExpectancy} years',
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    const SizedBox(height: 3),
+                                    Text('Trainability: ${dog.trainability} / 5.0', 
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       );

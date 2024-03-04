@@ -45,6 +45,7 @@ dependencies:
   ionicons: ^0.2.2
   google_fonts: ^6.1.0
   carousel_slider: ^4.2.1
+  like_button: ^2.0.5
 
 dev_dependencies:
   flutter_test:
