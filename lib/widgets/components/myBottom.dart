@@ -12,28 +12,22 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60, // Điều chỉnh chiều cao của Bottom Navigation ở đây
+      height: 60, 
       child: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: onTabTapped,
-        selectedFontSize: 12, // Đặt kích thước của nhãn khi được chọn
+        selectedFontSize: 12,
         items: const [
           BottomNavigationBarItem(
-            // icon: Icon(Ionicons.home_outline),
-            // icon: Icon(Ionicons.home_outline),
             icon: Icon(Iconsax.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            // icon: Icon(Ionicons.heart_outline),
             icon: Icon(Iconsax.heart),
             label: 'Favourite',
           ),
           
           BottomNavigationBarItem(
-            // icon: Icon(Ionicons.person_outline),
-            // icon: Icon(Iconsax.user),
-            // icon: Icon(Iconsax.user),
             icon: Icon(Ionicons.person_circle_outline,size: 28),
             label: 'Profile',
           ),
