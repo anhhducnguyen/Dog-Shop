@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:home/models/dog_model.dart';
-import 'package:home/widgets/bigText.dart';
-import 'package:home/widgets/smallText.dart';
+import 'package:home/models/bigText.dart';
+import 'package:home/models/smallText.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
 
@@ -15,7 +15,7 @@ class DetailsPage extends StatelessWidget {
 
   const DetailsPage({super.key, required this.dog});
   
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
@@ -103,7 +103,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
@@ -119,7 +119,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
@@ -135,7 +135,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                  child: Column(
@@ -151,7 +151,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
@@ -167,7 +167,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
@@ -183,7 +183,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
@@ -199,7 +199,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
@@ -215,7 +215,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
@@ -232,7 +232,7 @@ class DetailsPage extends StatelessWidget {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(115, 133, 132, 132),
+                                  color: Color(0xFFFFDAC1),
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(

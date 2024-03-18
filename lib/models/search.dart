@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 // import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import '../../models/dog_model.dart';
+import '../pages/dog_infor.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -217,70 +218,73 @@ class _SearchState extends State<Search> {
               ? const CircularProgressIndicator()
               : ListView(
                   children: _dogs.map((dog) {
-                    return Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: getLogoutButtonColor(context, isDarkMode),
-                          borderRadius: BorderRadius.circular(6),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        child: Row(
-                          children: [
-                            Container(
-                                width: 85, 
-                                height: 85,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10), // Đặt bán kính bo tròn
-                                  image: DecorationImage(
-                                    image: NetworkImage(dog.imageUrl),
-                                    fit: BoxFit.cover,
+                    return InkWell(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(dog: dog ,))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: getLogoutButtonColor(context, isDarkMode),
+                            borderRadius: BorderRadius.circular(6),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          child: Row(
+                            children: [
+                              Container(
+                                  width: 85, 
+                                  height: 85,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10), // Đặt bán kính bo tròn
+                                    image: DecorationImage(
+                                      image: NetworkImage(dog.imageUrl),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    color: Colors.grey, // Màu nền khi hình ảnh không có sẵn
                                   ),
-                                  color: Colors.grey, // Màu nền khi hình ảnh không có sẵn
+                                ),
+                              const SizedBox(width: 20),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          dog.name,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green[800],
+                                          ),
+                                        ),
+                                        const Icon(Icons.more_vert),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 3),
+                                    // Text('Min Lifespan: ${dog.minLifeExpectancy} year'),
+                                    // SizedBox(height: 3),
+                                    // Text('Max Life Expectancy: ${dog.maxLifeExpectancy} year'),
+                                    Text('Life span: ${dog.minLifeExpectancy} - ${dog.maxLifeExpectancy} year',
+                                      
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text('Trainability: ${dog.trainability} / 5.0', 
+                                      
+                                    ),
+                                  ],
                                 ),
                               ),
-                            const SizedBox(width: 20),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        dog.name,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.green[800],
-                                        ),
-                                      ),
-                                      const Icon(Icons.more_vert),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 3),
-                                  // Text('Min Lifespan: ${dog.minLifeExpectancy} year'),
-                                  // SizedBox(height: 3),
-                                  // Text('Max Life Expectancy: ${dog.maxLifeExpectancy} year'),
-                                  Text('Life span: ${dog.minLifeExpectancy} - ${dog.maxLifeExpectancy} year',
-                                    
-                                  ),
-                                  const SizedBox(height: 3),
-                                  Text('Trainability: ${dog.trainability} / 5.0', 
-                                    
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );
