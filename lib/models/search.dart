@@ -97,94 +97,94 @@ class _SearchState extends State<Search> {
     }
   }
 
-  // Future<void> searchDog(String name, double? trainability) async {
-  //   var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
-  //   var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=$name';
-  //   if (trainability != null) {
-  //     apiUrl += '&trainability=$trainability';
-  //   }
+  Future<void> searchDog(String name, double? trainability) async {
+    var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
+    var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=$name';
+    if (trainability != null) {
+      apiUrl += '&trainability=$trainability';
+    }
 
-  //   var headers = {
-  //     'X-Api-Key': apiKey,
-  //   };
+    var headers = {
+      'X-Api-Key': apiKey,
+    };
 
-  //   var response = await http.get(Uri.parse(apiUrl), headers: headers);
+    var response = await http.get(Uri.parse(apiUrl), headers: headers);
 
-  //   if (response.statusCode == 200) {
-  //     var jsonData = jsonDecode(response.body);
-  //     var dogs = jsonData.map<Dog>((dogData) => Dog(
-  //       name: dogData['name'],
-  //       imageUrl: dogData['image_link'],
-  //       minLifeExpectancy: double.parse(dogData['min_life_expectancy'].toString()),
-  //       maxLifeExpectancy: double.parse(dogData['max_life_expectancy'].toString()),
-  //       trainability: double.parse(dogData['trainability'].toString()),
-  //       maxHeighMale: double.parse(jsonData[0]['max_height_male'].toString()),
-  //       minHeightMale: double.parse(jsonData[0]['min_height_male'].toString()),
-  //       maxHeightFemale: double.parse(jsonData[0]['max_height_female'].toString()),
-  //       minHeightFemale: double.parse(jsonData[0]['min_height_female'].toString()),
-  //       energy: double.parse(jsonData[0]['energy'].toString()),
-  //       minWeightFemale: double.parse(jsonData[0]['min_weight_female'].toString()),
-  //       maxWeightFemale: double.parse(jsonData[0]['max_weight_female'].toString()),
-  //       minWeightMale: double.parse(jsonData[0]['min_weight_male'].toString()),
-  //       maxWeightMale: double.parse(jsonData[0]['max_weight_male'].toString()),
-  //       goodWithChildren: double.parse(jsonData[0]['good_with_children'].toString()),
-  //       goodWithOtherDog: double.parse(jsonData[0]['good_with_other_dogs'].toString()),
-  //       playfulness: double.parse(jsonData[0]['playfulness'].toString())
+    if (response.statusCode == 200) {
+      var jsonData = jsonDecode(response.body);
+      var dogs = jsonData.map<Dog>((dogData) => Dog(
+        name: dogData['name'],
+        imageUrl: dogData['image_link'],
+        minLifeExpectancy: double.parse(dogData['min_life_expectancy'].toString()),
+        maxLifeExpectancy: double.parse(dogData['max_life_expectancy'].toString()),
+        trainability: double.parse(dogData['trainability'].toString()),
+        maxHeighMale: double.parse(jsonData[0]['max_height_male'].toString()),
+        minHeightMale: double.parse(jsonData[0]['min_height_male'].toString()),
+        maxHeightFemale: double.parse(jsonData[0]['max_height_female'].toString()),
+        minHeightFemale: double.parse(jsonData[0]['min_height_female'].toString()),
+        energy: double.parse(jsonData[0]['energy'].toString()),
+        minWeightFemale: double.parse(jsonData[0]['min_weight_female'].toString()),
+        maxWeightFemale: double.parse(jsonData[0]['max_weight_female'].toString()),
+        minWeightMale: double.parse(jsonData[0]['min_weight_male'].toString()),
+        maxWeightMale: double.parse(jsonData[0]['max_weight_male'].toString()),
+        goodWithChildren: double.parse(jsonData[0]['good_with_children'].toString()),
+        goodWithOtherDog: double.parse(jsonData[0]['good_with_other_dogs'].toString()),
+        playfulness: double.parse(jsonData[0]['playfulness'].toString())
 
-  //     )).toList();
-  //     setState(() {
-  //       _dogs.clear();
-  //       _dogs.addAll(dogs);
-  //     });
-  //   } else {
-  //     print('Error fetching data: ${response.statusCode}');
-  //   }
-  // }
-  Future<void> searchDog(String keyword, double? trainability) async {
-  var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
-  var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=$keyword';
-  if (trainability != null) {
-    apiUrl += '&trainability=$trainability';
+      )).toList();
+      setState(() {
+        _dogs.clear();
+        _dogs.addAll(dogs);
+      });
+    } else {
+      print('Error fetching data: ${response.statusCode}');
+    }
   }
+//   Future<void> searchDog(String keyword, double? trainability) async {
+//   var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
+//   var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=$keyword';
+//   if (trainability != null) {
+//     apiUrl += '&trainability=$trainability';
+//   }
 
-  var headers = {
-    'X-Api-Key': apiKey,
-  };
+//   var headers = {
+//     'X-Api-Key': apiKey,
+//   };
 
-  var response = await http.get(Uri.parse(apiUrl), headers: headers);
+//   var response = await http.get(Uri.parse(apiUrl), headers: headers);
 
-  if (response.statusCode == 200) {
-    var jsonData = jsonDecode(response.body);
-    var dogs = jsonData
-        .where((dogData) => dogData['name'].toString().toLowerCase().startsWith(keyword.toLowerCase()))
-        .map<Dog>((dogData) => Dog(
-              name: dogData['name'],
-              imageUrl: dogData['image_link'],
-              minLifeExpectancy: double.parse(dogData['min_life_expectancy'].toString()),
-              maxLifeExpectancy: double.parse(dogData['max_life_expectancy'].toString()),
-              trainability: double.parse(dogData['trainability'].toString()),
-              maxHeighMale: double.parse(dogData['max_height_male'].toString()),
-              minHeightMale: double.parse(dogData['min_height_male'].toString()),
-              maxHeightFemale: double.parse(dogData['max_height_female'].toString()),
-              minHeightFemale: double.parse(dogData['min_height_female'].toString()),
-              energy: double.parse(dogData['energy'].toString()),
-              minWeightFemale: double.parse(dogData['min_weight_female'].toString()),
-              maxWeightFemale: double.parse(dogData['max_weight_female'].toString()),
-              minWeightMale: double.parse(dogData['min_weight_male'].toString()),
-              maxWeightMale: double.parse(dogData['max_weight_male'].toString()),
-              goodWithChildren: double.parse(dogData['good_with_children'].toString()),
-              goodWithOtherDog: double.parse(dogData['good_with_other_dogs'].toString()),
-              playfulness: double.parse(dogData['playfulness'].toString()),
-            ))
-        .toList();
-    setState(() {
-      _dogs.clear();
-      _dogs.addAll(dogs);
-    });
-  } else {
-    print('Error fetching data: ${response.statusCode}');
-  }
-}
+//   if (response.statusCode == 200) {
+//     var jsonData = jsonDecode(response.body);
+//     var dogs = jsonData
+//         .where((dogData) => dogData['name'].toString().toLowerCase().startsWith(keyword.toLowerCase()))
+//         .map<Dog>((dogData) => Dog(
+//               name: dogData['name'],
+//               imageUrl: dogData['image_link'],
+//               minLifeExpectancy: double.parse(dogData['min_life_expectancy'].toString()),
+//               maxLifeExpectancy: double.parse(dogData['max_life_expectancy'].toString()),
+//               trainability: double.parse(dogData['trainability'].toString()),
+//               maxHeighMale: double.parse(dogData['max_height_male'].toString()),
+//               minHeightMale: double.parse(dogData['min_height_male'].toString()),
+//               maxHeightFemale: double.parse(dogData['max_height_female'].toString()),
+//               minHeightFemale: double.parse(dogData['min_height_female'].toString()),
+//               energy: double.parse(dogData['energy'].toString()),
+//               minWeightFemale: double.parse(dogData['min_weight_female'].toString()),
+//               maxWeightFemale: double.parse(dogData['max_weight_female'].toString()),
+//               minWeightMale: double.parse(dogData['min_weight_male'].toString()),
+//               maxWeightMale: double.parse(dogData['max_weight_male'].toString()),
+//               goodWithChildren: double.parse(dogData['good_with_children'].toString()),
+//               goodWithOtherDog: double.parse(dogData['good_with_other_dogs'].toString()),
+//               playfulness: double.parse(dogData['playfulness'].toString()),
+//             ))
+//         .toList();
+//     setState(() {
+//       _dogs.clear();
+//       _dogs.addAll(dogs);
+//     });
+//   } else {
+//     print('Error fetching data: ${response.statusCode}');
+//   }
+// }
 
 
   @override

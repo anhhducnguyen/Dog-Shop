@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:home/models/search.dart';
 import 'package:home/models/theme_manager.dart';
@@ -11,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import '../../models/dog_model.dart';
+// import '../../models/dog_name.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,6 +36,7 @@ class _MyHomePageState extends State<HomePage> {
   List<Dog> _dogs = [];
   bool _loading = true;
   // bool _isSearching = false;
+
   
 
   @override
@@ -80,7 +83,7 @@ class _MyHomePageState extends State<HomePage> {
       playfulness: playfulness
       );   
   }
-  Future<void> fetchData() async {
+Future<void> fetchData() async {
   var dogNames = [
     'Samoyed',
     'American Eskimo',
@@ -89,22 +92,34 @@ class _MyHomePageState extends State<HomePage> {
     'Husky',
     'Bolognese',
     'Kuvasz',
+    'Labrador Retriever', // Thêm các tên loài chó mới vào đây
+    'German Shepherd',
+    'Golden Retriever',
+    'Bulldog',
+    'Poodle',
+    'Beagle',
   ];
-  var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
 
+  var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
   var client = http.Client();
 
   try {
     var requests = <Future>[];
-    for (var name in dogNames) {
-      var apiURL = 'https://api.api-ninjas.com/v1/dogs?name=$name';
+    var random = Random();
+    var selectedDogNames = <String>{};
 
-      var headers = {
-        'X-Api-Key': apiKey,
-      };
+    while (selectedDogNames.length < 10) {
+      var randomIndex = random.nextInt(dogNames.length);
+      var name = dogNames[randomIndex];
 
-      var request = client.get(Uri.parse(apiURL), headers: headers);
-      requests.add(request);
+      if (!selectedDogNames.contains(name)) {
+        selectedDogNames.add(name);
+
+        var apiURL = 'https://api.api-ninjas.com/v1/dogs?name=$name';
+        var headers = {'X-Api-Key': apiKey};
+        var request = client.get(Uri.parse(apiURL), headers: headers);
+        requests.add(request);
+      }
     }
 
     var responses = await Future.wait(requests);
@@ -147,6 +162,74 @@ class _MyHomePageState extends State<HomePage> {
     });
   }
 }
+
+//   Future<void> fetchData() async {
+//   var dogNames = [
+//     'Samoyed',
+//     'American Eskimo',
+//     'Great Pyrenees',
+//     'Akita',
+//     'Husky',
+//     'Bolognese',
+//     'Kuvasz',
+//   ];
+//   var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
+
+//   var client = http.Client();
+
+//   try {
+//     var requests = <Future>[];
+//     for (var name in dogNames) {
+//       var apiURL = 'https://api.api-ninjas.com/v1/dogs?name=$name';
+
+//       var headers = {
+//         'X-Api-Key': apiKey,
+//       };
+
+//       var request = client.get(Uri.parse(apiURL), headers: headers);
+//       requests.add(request);
+//     }
+
+//     var responses = await Future.wait(requests);
+
+//     for (var response in responses) {
+//       if (response.statusCode == 200) {
+//         var jsonData = jsonDecode(response.body);
+//         var dog = Dog(
+//           name: jsonData[0]['name'],
+//           imageUrl: jsonData[0]['image_link'],
+//           minLifeExpectancy: double.parse(jsonData[0]['min_life_expectancy'].toString()),
+//           maxLifeExpectancy: double.parse(jsonData[0]['max_life_expectancy'].toString()),
+//           trainability: double.parse(jsonData[0]['trainability'].toString()),
+//           maxHeighMale: double.parse(jsonData[0]['max_height_male'].toString()),
+//           minHeightMale: double.parse(jsonData[0]['min_height_male'].toString()),
+//           maxHeightFemale: double.parse(jsonData[0]['max_height_female'].toString()),
+//           minHeightFemale: double.parse(jsonData[0]['min_height_female'].toString()),
+//           energy: double.parse(jsonData[0]['energy'].toString()),
+//           minWeightFemale: double.parse(jsonData[0]['min_weight_female'].toString()),
+//           maxWeightFemale: double.parse(jsonData[0]['max_weight_female'].toString()),
+//           minWeightMale: double.parse(jsonData[0]['min_weight_male'].toString()),
+//           maxWeightMale: double.parse(jsonData[0]['max_weight_male'].toString()),
+//           goodWithChildren: double.parse(jsonData[0]['good_with_children'].toString()),
+//           goodWithOtherDog: double.parse(jsonData[0]['good_with_other_dogs'].toString()),
+//           playfulness: double.parse(jsonData[0]['playfulness'].toString())
+//         );
+//         setState(() {
+//           _dogs.add(dog);
+//         });
+//       } else {
+//         print('Error fetching data: ${response.statusCode}');
+//       }
+//     }
+//   } catch (e) {
+//     print('Error: $e');
+//   } finally {
+//     client.close();
+//     setState(() {
+//       _loading = false;
+//     });
+//   }
+// }
 
   @override
   Widget build(BuildContext context) {
