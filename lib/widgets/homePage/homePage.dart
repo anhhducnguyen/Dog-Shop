@@ -334,7 +334,7 @@ class _MyHomePageState extends State<HomePage> {
         currentIndex: 0,
         onTabTapped: (int index) {
           if (index == 1) {
-            Navigator.pushNamed(context, "/"); // Navigate to the home page
+            Navigator.pushNamed(context, "/favourite"); // Navigate to the home page
           } else if (index == 2) {
             Navigator.pushNamed(context, "/profile"); // Navigate to the profile page
           } 

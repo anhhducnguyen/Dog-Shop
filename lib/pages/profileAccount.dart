@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import '../Firebase_Authentication/firebase_auth.dart';
 import '/models/theme_manager.dart';
 import '/widgets/components/myBottom.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
-  
+  ProfileScreen({Key? key}) : super(key: key);
+  FirebaseAuthService _auth = FirebaseAuthService();
+
+
   Color getLogoutButtonColor(BuildContext context, bool isDarkMode) {
     return isDarkMode ? Colors.purple.shade800 : Colors.blue.shade400;
   }
@@ -65,7 +68,10 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await _auth.signOut();
+                    Navigator.of(context).popAndPushNamed("/");
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(15),
                     primary: getLogoutButtonColor(context, isDarkMode), // Sử dụng màu chủ đề

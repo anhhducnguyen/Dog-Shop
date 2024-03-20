@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -6,16 +8,75 @@ import 'package:home/models/bigText.dart';
 import 'package:home/models/smallText.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-
-
-class DetailsPage extends StatelessWidget {
-
+class DetailsPage extends StatefulWidget {
   final Dog dog;
+  DetailsPage({Key? key, required this.dog}) : super(key: key);
 
-  const DetailsPage({super.key, required this.dog});
-  
-  
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  late CollectionReference _userRef;
+  String? userId;
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _userRef = FirebaseFirestore.instance.collection('users');
+    _checkUserId();
+    _checkIfDogIsLiked();
+  }
+
+  Future<void> _checkUserId() async {
+    // Lấy userId từ Firebase Authentication
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+    }
+  }
+
+  Future<void> _checkIfDogIsLiked() async {
+    if (userId != null) {
+      var userDoc = _userRef.doc(userId);
+      var querySnapshot = await userDoc.collection('likedDogs').where('name', isEqualTo: widget.dog.name).get();
+      setState(() {
+        isLiked = querySnapshot.docs.isNotEmpty;
+      });
+    }
+  }
+
+  Future<bool?> _toggleFavorite(bool isLiked) async {
+    try {
+      if (userId != null) {
+        var userDoc = _userRef.doc(userId);
+        var likedDogsRef = userDoc.collection('likedDogs');
+
+        if (isLiked) {
+          await likedDogsRef.where('name', isEqualTo: widget.dog.name).get().then((snapshot) {
+            for (DocumentSnapshot doc in snapshot.docs) {
+              doc.reference.delete();
+            }
+          });
+        } else {
+          await likedDogsRef.doc(widget.dog.name).set({
+            'name': widget.dog.name,
+            'imageUrl': widget.dog.imageUrl,
+            // Thêm các trường dữ liệu khác của con chó tùy ý
+          });
+        }
+      }
+      return !isLiked;
+    } catch (error) {
+      return isLiked;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +87,8 @@ class DetailsPage extends StatelessWidget {
         preferredSize: Size.fromHeight(50),
         child: AppBar(
           backgroundColor: Colors.amber,
-          
-          title: Text(dog.name),
+
+          title: Text(widget.dog.name),
         ),
       ),
 
@@ -39,7 +100,7 @@ class DetailsPage extends StatelessWidget {
               color: Colors.black,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(dog.imageUrl)
+                image: NetworkImage(widget.dog.imageUrl)
               )
             ),
           ),
@@ -62,7 +123,7 @@ class DetailsPage extends StatelessWidget {
                         color: Color.fromARGB(255, 243, 220, 105)
                       ),
                       margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                      
+
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -72,8 +133,10 @@ class DetailsPage extends StatelessWidget {
                           ),
                           LikeButton(
                             size: 50,
+                            isLiked: isLiked,
+                            onTap: _toggleFavorite,
                             // onTap: (isLiked) {
-                              
+
                             // },
                           )
                         ],
@@ -94,7 +157,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Life expectancy"),
-                                    SmallText(text: '${dog.minLifeExpectancy}' ' - ' '${dog.maxLifeExpectancy}' ' years')
+                                    SmallText(text: '${widget.dog.minLifeExpectancy}' ' - ' '${widget.dog.maxLifeExpectancy}' ' years')
                                   ],
                                 ),
                             ),
@@ -110,7 +173,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Trainability"),
-                                    SmallText(text: '${dog.trainability}' ' /5.0')
+                                    SmallText(text: '${widget.dog.trainability}' ' /5.0')
                                   ],
                                 ),
                               ),
@@ -126,7 +189,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Height male"),
-                                    SmallText(text: '${dog.minHeightMale}' ' - ' '${dog.maxHeighMale}' ' fts')
+                                    SmallText(text: '${widget.dog.minHeightMale}' ' - ' '${widget.dog.maxHeighMale}' ' fts')
                                   ],
                                 ),
                               ),
@@ -142,7 +205,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Height female"),
-                                    SmallText(text: '${dog.minHeightFemale}' ' - ' '${dog.maxHeightFemale}' ' fts')
+                                    SmallText(text: '${widget.dog.minHeightFemale}' ' - ' '${widget.dog.maxHeightFemale}' ' fts')
                                   ],
                                 ),
                               ),
@@ -158,7 +221,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Weight male"),
-                                    SmallText(text: '${dog.minWeightMale}' ' - ' '${dog.maxWeightMale}' ' kgs')
+                                    SmallText(text: '${widget.dog.minWeightMale}' ' - ' '${widget.dog.maxWeightMale}' ' kgs')
                                   ],
                                 ),
                               ),
@@ -174,7 +237,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Weight female"),
-                                    SmallText(text: '${dog.minWeightFemale}' ' - ' '${dog.maxWeightFemale}' ' kgs')
+                                    SmallText(text: '${widget.dog.minWeightFemale}' ' - ' '${widget.dog.maxWeightFemale}' ' kgs')
                                   ],
                                 ),
                               ),
@@ -190,7 +253,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Good with children"),
-                                    SmallText(text: '${dog.goodWithChildren}' ' /5.0')
+                                    SmallText(text: '${widget.dog.goodWithChildren}' ' /5.0')
                                   ],
                                 ),
                               ),
@@ -206,7 +269,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Good with other dog"),
-                                    SmallText(text: '${dog.goodWithOtherDog}' ' /5.0')
+                                    SmallText(text: '${widget.dog.goodWithOtherDog}' ' /5.0')
                                   ],
                                 ),
                               ),
@@ -222,11 +285,11 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Playfulness"),
-                                    SmallText(text: '${dog.playfulness}' ' /5.0')
+                                    SmallText(text: '${widget.dog.playfulness}' ' /5.0')
                                   ],
                                 ),
                               ),
-                              
+
                               Container(
                                 margin: EdgeInsets.all(10),
                                 height: containerHeight,
@@ -239,7 +302,7 @@ class DetailsPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     BigText(text: "Energy"),
-                                    SmallText(text: '${dog.energy}' ' /5.0')
+                                    SmallText(text: '${widget.dog.energy}' ' /5.0')
                                   ],
                                 ),
                               ),
@@ -252,7 +315,7 @@ class DetailsPage extends StatelessWidget {
           )
         ],
       ),
-      
+
     );
   }
 }

@@ -33,6 +33,10 @@ dependencies:
   iconsax: ^0.0.8
   flutter:
     sdk: flutter
+  firebase_core: ^2.25.4
+  firebase_database: ^10.4.9
+  firebase_auth: ^4.17.4
+  cloud_firestore: ^4.15.8
 
   confirm_dialog: ^1.0.3
 
@@ -46,6 +50,8 @@ dependencies:
   google_fonts: ^6.1.0
   carousel_slider: ^4.2.1
   like_button: ^2.0.5
+  get: ^4.6.6
+  flutter_svg: ^2.0.10+1
   
 dev_dependencies:
   flutter_test:

@@ -36,4 +36,27 @@ class Dog {
     required this.minWeightMale,
     required this.playfulness
   });
+
+  factory Dog.fromJson(Map<String, dynamic> json) {
+    return Dog(
+      name: json['name'],
+      imageUrl: json['imageUrl'],
+      minLifeExpectancy: json['minLifeExpectancy'].toDouble(),
+      maxLifeExpectancy: json['maxLifeExpectancy'].toDouble(),
+      trainability: json['trainability'].toDouble(),
+      maxHeighMale: json['maxHeighMale'].toDouble(),
+      minHeightMale: json['minHeightMale'].toDouble(),
+      maxHeightFemale: json['maxHeightFemale'].toDouble(),
+      minHeightFemale: json['minHeightFemale'].toDouble(),
+      energy: json['energy'].toDouble(),
+      goodWithChildren: json['goodWithChildren'].toDouble(),
+      goodWithOtherDog: json['goodWithOtherDog'].toDouble(),
+      maxWeightFemale: json['maxWeightFemale'].toDouble(),
+      maxWeightMale: json['maxWeightMale'].toDouble(),
+      minWeightFemale: json['minWeightFemale'].toDouble(),
+      minWeightMale: json['minWeightMale'].toDouble(),
+      playfulness: json['playfulness'].toDouble(),
+    );
+  }
+
 }

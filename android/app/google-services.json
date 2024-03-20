@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "568501628949",
+    "project_id": "dog-wiki",
+    "storage_bucket": "dog-wiki.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568501628949:android:d56087f8268cbad16ade1c",
+        "android_client_info": {
+          "package_name": "com.example.dog_shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw8yZ-EEAGgPBIRSDrncdrYZtuTfcAeFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
