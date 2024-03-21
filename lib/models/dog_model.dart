@@ -58,5 +58,4 @@ class Dog {
       playfulness: json['playfulness'].toDouble(),
     );
   }
-
 }

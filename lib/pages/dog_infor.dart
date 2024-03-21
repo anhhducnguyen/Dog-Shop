@@ -59,16 +59,32 @@ class _DetailsPageState extends State<DetailsPage> {
         var likedDogsRef = userDoc.collection('likedDogs');
 
         if (isLiked) {
+          // Xóa con chó khỏi danh sách yêu thích
           await likedDogsRef.where('name', isEqualTo: widget.dog.name).get().then((snapshot) {
             for (DocumentSnapshot doc in snapshot.docs) {
               doc.reference.delete();
             }
           });
         } else {
+          // Thêm con chó vào danh sách yêu thích
           await likedDogsRef.doc(widget.dog.name).set({
             'name': widget.dog.name,
             'imageUrl': widget.dog.imageUrl,
-            // Thêm các trường dữ liệu khác của con chó tùy ý
+            'minLifeExpectancy': widget.dog.minLifeExpectancy,
+            'maxLifeExpectancy': widget.dog.maxLifeExpectancy,
+            'trainability': widget.dog.trainability,
+            'maxHeighMale': widget.dog.maxHeighMale,
+            'minHeightMale': widget.dog.minHeightMale,
+            'maxHeightFemale': widget.dog.maxHeightFemale,
+            'minHeightFemale': widget.dog.minHeightFemale,
+            'maxWeightMale': widget.dog.maxWeightMale,
+            'minWeightMale': widget.dog.minWeightMale,
+            'minWeightFemale': widget.dog.minWeightFemale,
+            'maxWeightFemale': widget.dog.maxWeightFemale,
+            'energy': widget.dog.energy,
+            'goodWithChildren': widget.dog.goodWithChildren,
+            'goodWithOtherDog': widget.dog.goodWithOtherDog,
+            'playfulness': widget.dog.playfulness,
           });
         }
       }

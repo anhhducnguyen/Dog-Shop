@@ -40,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
           if (index == 0) {
             Navigator.pushNamed(context, "/homePage"); // Navigate to the home page
           } else if (index == 1) {
-            Navigator.pushNamed(context, "/newpage"); // Navigate to the profile page
+            Navigator.pushNamed(context, "/favourite"); // Navigate to the profile page
           } 
         },
       ),     
