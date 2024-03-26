@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:home/widgets/homePage/homePage.dart';
 import 'package:home/widgets/view/widgets/social.login.dart';
 import 'package:home/widgets/view/widgets/text.form.global.dart';
 import '../../Firebase_Authentication/firebase_auth.dart';
@@ -123,7 +124,10 @@ class LoginView extends StatelessWidget {
                         backgroundColor: Colors.green,
                       ));
 
-                      Navigator.pushNamed(context, "/homePage");
+                      // Navigator.pushNamed(context, "/homePage");
+                      Navigator.pushReplacement( 
+                        context,
+                         MaterialPageRoute(builder: (context) => HomePage())); // chuyển trang không cho phép quay lại login từ trang chủ
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Có lỗi đăng nhập."),

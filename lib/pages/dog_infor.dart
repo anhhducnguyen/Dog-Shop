@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -6,10 +7,12 @@ import 'package:flutter/rendering.dart';
 import 'package:home/models/dog_model.dart';
 import 'package:home/models/bigText.dart';
 import 'package:home/models/smallText.dart';
+import 'package:home/models/theme_manager.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:provider/provider.dart';
 
 class DetailsPage extends StatefulWidget {
   final Dog dog;
@@ -87,6 +90,13 @@ class _DetailsPageState extends State<DetailsPage> {
             'playfulness': widget.dog.playfulness,
           });
         }
+        final String message = isLiked ? 'Đã xóa ${widget.dog.name} khỏi mục yêu thích' : 'Đã thêm ${widget.dog.name} vào mục yêu thích';
+        ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          duration: Duration(seconds: 2), // Thời gian hiển thị của SnackBar
+        ),
+      );
       }
       return !isLiked;
     } catch (error) {
@@ -94,22 +104,27 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
-     var containerWidth = MediaQuery.of(context).size.width *0.45;
-     var containerHeight = MediaQuery.of(context).size.height*0.1;
+    final themeManager = Provider.of<ThemeManager>(context);
+    final isDarkMode = themeManager.themeMode == ThemeMode.dark;
+    final fontSize = themeManager.fontSize;
+    var containerWidth = MediaQuery.of(context).size.width *0.4;
+    var containerHeight = MediaQuery.of(context).size.height*0.1;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: AppBar(
-          backgroundColor: Colors.amber,
-
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
           title: Text(widget.dog.name),
         ),
       ),
 
       body: Stack(
         children: [
+          // chứa ảnh của chó
           Container(
             height: MediaQuery.of(context).size.height*0.35,
             decoration: BoxDecoration(
@@ -127,7 +142,7 @@ class _DetailsPageState extends State<DetailsPage> {
               height: MediaQuery.of(context).size.height*0.614,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-                color: Colors.white
+                color: !isDarkMode ? Colors.white : Colors.black
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -136,10 +151,11 @@ class _DetailsPageState extends State<DetailsPage> {
                       height:60 ,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color.fromARGB(255, 243, 220, 105)
+                        color: !isDarkMode? Color.fromARGB(255, 243, 220, 105) : Color(0xFF001F3F)
                       ),
                       margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
 
+                      // Phần thêm vào mục yêu thích
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -158,6 +174,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         ],
                       ),
                     ),
+                    // Chứa thông tin của chó
                     Wrap(
                           direction: Axis.horizontal,
                           children: <Widget> [
@@ -166,14 +183,24 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Life expectancy"),
-                                    SmallText(text: '${widget.dog.minLifeExpectancy}' ' - ' '${widget.dog.maxLifeExpectancy}' ' years')
+                                    Text( 
+                                      "Life expectancy", 
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold
+                                      ),),
+                                    Text( 
+                                      '${widget.dog.minLifeExpectancy}' ' - ' '${widget.dog.maxLifeExpectancy}' ' years',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ),
+                                      )
                                   ],
                                 ),
                             ),
@@ -182,13 +209,18 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Trainability"),
+                                    Text(
+                                      "Trainability",
+                                      style:TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: fontSize
+                                      ) ,),
                                     SmallText(text: '${widget.dog.trainability}' ' /5.0')
                                   ],
                                 ),
@@ -198,14 +230,22 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Height male"),
-                                    SmallText(text: '${widget.dog.minHeightMale}' ' - ' '${widget.dog.maxHeighMale}' ' fts')
+                                    Text( "Height male", style: TextStyle(
+                                      fontSize: fontSize,
+                                      fontWeight: FontWeight.bold
+                                    ),),
+                                    Text(
+                                      '${widget.dog.minHeightMale}' ' - ' '${widget.dog.maxHeighMale}' ' fts',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -214,14 +254,21 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                  child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Height female"),
-                                    SmallText(text: '${widget.dog.minHeightFemale}' ' - ' '${widget.dog.maxHeightFemale}' ' fts')
+                                    Text("Height female",
+                                     style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: fontSize
+                                     ) ,),
+                                    Text('${widget.dog.minHeightFemale}' ' - ' '${widget.dog.maxHeightFemale}' ' fts',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ) ,)
                                   ],
                                 ),
                               ),
@@ -230,14 +277,23 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Weight male"),
-                                    SmallText(text: '${widget.dog.minWeightMale}' ' - ' '${widget.dog.maxWeightMale}' ' kgs')
+                                    Text(
+                                      "Weight male",
+                                       style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold
+                                       ) ,),
+                                    Text(
+                                      '${widget.dog.minWeightMale}' ' - ' '${widget.dog.maxWeightMale}' ' kgs',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ),)
                                   ],
                                 ),
                               ),
@@ -246,14 +302,23 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Weight female"),
-                                    SmallText(text: '${widget.dog.minWeightFemale}' ' - ' '${widget.dog.maxWeightFemale}' ' kgs')
+                                    Text(
+                                      "Weight female",
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold
+                                      ),),
+                                    Text(
+                                      '${widget.dog.minWeightFemale}' ' - ' '${widget.dog.maxWeightFemale}' ' kgs',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ),)
                                   ],
                                 ),
                               ),
@@ -262,14 +327,23 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Good with children"),
-                                    SmallText(text: '${widget.dog.goodWithChildren}' ' /5.0')
+                                    Text(
+                                      "Good with children",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: fontSize
+                                      ),),
+                                    Text(
+                                      '${widget.dog.goodWithChildren}' ' /5.0',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ),)
                                   ],
                                 ),
                               ),
@@ -278,14 +352,23 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Good with other dog"),
-                                    SmallText(text: '${widget.dog.goodWithOtherDog}' ' /5.0')
+                                    Text(
+                                      "Good with other dog",
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold
+                                      ),),
+                                    Text(
+                                      '${widget.dog.goodWithOtherDog}' ' /5.0',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ),)
                                   ],
                                 ),
                               ),
@@ -294,14 +377,23 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Playfulness"),
-                                    SmallText(text: '${widget.dog.playfulness}' ' /5.0')
+                                    Text(
+                                      "Playfulness",
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold
+                                      ),),
+                                    Text(
+                                      '${widget.dog.playfulness}' ' /5.0',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ),)
                                   ],
                                 ),
                               ),
@@ -311,14 +403,23 @@ class _DetailsPageState extends State<DetailsPage> {
                                 height: containerHeight,
                                 width: containerWidth,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFDAC1),
+                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text: "Energy"),
-                                    SmallText(text: '${widget.dog.energy}' ' /5.0')
+                                    Text(
+                                      "Energy",
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold
+                                      ),),
+                                    Text(
+                                      '${widget.dog.energy}' ' /5.0',
+                                      style: TextStyle(
+                                        fontSize: fontSize
+                                      ),)
                                   ],
                                 ),
                               ),
@@ -331,7 +432,6 @@ class _DetailsPageState extends State<DetailsPage> {
           )
         ],
       ),
-
     );
   }
 }
