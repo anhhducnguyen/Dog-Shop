@@ -7,10 +7,13 @@ import '../Firebase_Authentication/firebase_auth.dart';
 import '/models/theme_manager.dart';
 import '/widgets/components/myBottom.dart';
 
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+class EditProfileScreen extends StatelessWidget {
+  EditProfileScreen({Key? key}) : super(key: key);
   FirebaseAuthService _auth = FirebaseAuthService();
-
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController addresController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
 
   Color getLogoutButtonColor(BuildContext context, bool isDarkMode) {
@@ -30,22 +33,20 @@ class ProfileScreen extends StatelessWidget {
         // foregroundColor: Colors.white,
         foregroundColor: Colors.black,
         title: const Text(
-          "Thông tin tài khoản",
+          "Sửa thông tin tài khoản",
           style: TextStyle(
             fontSize: 20,
             color: Colors.black,
           ),
         ),
-        actions: [
-          IconButton(
-            // icon: Icon(Icons.edit),
-            icon: const Icon(Ionicons.create_outline, size: 28),
-            onPressed: () {
-              // Xử lý khi người dùng nhấn vào nút chỉnh sửa ở đây
-              Navigator.pushNamed(context, "/eprofile");
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Ionicons.create_outline, size: 28),
+        //     onPressed: () {
+        //       // Xử lý khi người dùng nhấn vào nút chỉnh sửa ở đây
+        //     },
+        //   ),
+        // ],
       ),
       bottomNavigationBar: BottomNavigation(
         currentIndex: 2,
@@ -65,16 +66,40 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 40),
               const CircleAvatar(
                 radius: 70,
-                backgroundImage: AssetImage('assets/images/avata.jpg'),
+                backgroundImage: AssetImage('assets/images/avatar2.jpg'),
               ),
               const SizedBox(height: 20),
-              itemProfile('Name', 'Nguyễn Đức Anh', CupertinoIcons.person, isDarkMode),
-              const SizedBox(height: 10),
-              itemProfile('Phone', '0981402765', CupertinoIcons.phone, isDarkMode),
-              const SizedBox(height: 10),
-              itemProfile('Address', 'Hà Đông', CupertinoIcons.location, isDarkMode),
-              const SizedBox(height: 10),
-              itemProfile('Email', '21012478@st.phenikaa-uni.edu.vn', CupertinoIcons.mail, isDarkMode),
+              // itemProfile('Name', 'Nguyễn Đức Anh', CupertinoIcons.person, isDarkMode),
+              TextFormGlobal(
+                    controller: nameController,
+                    text: 'Name',
+                    obscure: false,
+                    textInputType: TextInputType.emailAddress
+              ),
+              const SizedBox(height: 20),
+              // itemProfile('Phone', '0981402765', CupertinoIcons.phone, isDarkMode),
+              TextFormGlobal(
+                    controller: phoneController,
+                    text: 'Phone',
+                    obscure: false,
+                    textInputType: TextInputType.emailAddress
+              ),
+              const SizedBox(height: 20),
+              // itemProfile('Address', 'Hà Đông', CupertinoIcons.location, isDarkMode),
+              TextFormGlobal(
+                    controller: addresController,
+                    text: 'Address',
+                    obscure: false,
+                    textInputType: TextInputType.emailAddress
+              ),
+              const SizedBox(height: 20),
+              // itemProfile('Email', '21012478@st.phenikaa-uni.edu.vn', CupertinoIcons.mail, isDarkMode),
+              TextFormGlobal(
+                    controller: emailController,
+                    text: 'Email',
+                    obscure: false,
+                    textInputType: TextInputType.emailAddress
+              ),
               const SizedBox(height: 70,),
               SizedBox(
                 width: double.infinity,
@@ -87,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15),
                     primary: getLogoutButtonColor(context, isDarkMode), // Sử dụng màu chủ đề
                   ),
-                  child: const Text('Đăng xuất', style: TextStyle(color: Colors.white)),
+                  child: const Text('Lưu thông tin', style: TextStyle(color: Colors.white)),
                 ),
               )
             ],

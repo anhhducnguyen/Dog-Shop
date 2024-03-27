@@ -1,6 +1,7 @@
 import "dart:io";
 import "package:flutter/material.dart";
 import "package:firebase_core/firebase_core.dart";
+import 'package:home/pages/editProfile.dart';
 import 'package:home/pages/favourite.dart';
 import 'package:home/widgets/view/forgotpassword.view.dart';
 import 'package:home/widgets/view/login.view.dart';
@@ -18,7 +19,7 @@ Future<void> main() async {
 
   Platform.isAndroid ?
   await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
         apiKey: "AIzaSyAw8yZ-EEAGgPBIRSDrncdrYZtuTfcAeFw", // current_key
         appId: "1:568501628949:android:d56087f8268cbad16ade1c", // mobilesdk_app_id
         messagingSenderId: "568501628949", // project_number
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
           "/introductionScreen": (context) => ProfileScreen(),
           "/settings": (context) => SettingsPage(),
           "/profile": (context) => ProfileScreen(),
+          "/eprofile": (context) => EditProfileScreen(),
         }
     );
   }

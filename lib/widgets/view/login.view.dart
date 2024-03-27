@@ -36,7 +36,7 @@ class LoginView extends StatelessWidget {
                 const SizedBox( height: 20),
                 Container(
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'Dog Wiki',
                     style: TextStyle(
                       color: Color(0xFF1E319D),
@@ -48,7 +48,7 @@ class LoginView extends StatelessWidget {
 
                 const SizedBox( height: 50),
 
-                Text(
+                const Text(
                   'Đăng nhập tài khoản của bạn',
                   style: TextStyle(
                     color: Color(0xFF4F4F4F),
@@ -90,7 +90,7 @@ class LoginView extends StatelessWidget {
                       onTap: () {
                         Navigator.pushNamed(context, '/forgotpassword');
                       },
-                      child: Text(
+                      child: const Text(
                         "Forgot Password?",
                         style: TextStyle(
                           color: Color(0xFF1E319D),
