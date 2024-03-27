@@ -1,9 +1,13 @@
 
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:home/main.dart';
 import 'package:home/models/dog_model.dart';
 import 'package:home/models/bigText.dart';
 import 'package:home/models/smallText.dart';
@@ -16,7 +20,7 @@ import 'package:provider/provider.dart';
 
 class DetailsPage extends StatefulWidget {
   final Dog dog;
-  DetailsPage({Key? key, required this.dog}) : super(key: key);
+  const DetailsPage({Key? key, required this.dog}) : super(key: key);
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -104,330 +108,309 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
+  String dog_des = '';
+
+  void dog_description(){
+    if(widget.dog.playfulness > 3){
+      dog_des = 'A playful dog';
+    } else{
+      dog_des = 'A lazy dog';
+    }
+  }
+
+  String good_w_child = '';
+  void goodWithChild(){
+    
+    if(widget.dog.goodWithChildren > 3){
+      good_w_child = 'You can comfortably let your child play with ${widget.dog.name}, as they are very gentle.';
+    } else{
+      good_w_child = 'You should be careful when letting your child play with ${widget.dog.name}, as they may not be gentle. ';
+    }
+  }
+
+  String good_w_dog = '';
+  void goodWithDog(){
+    
+    if(widget.dog.goodWithOtherDog > 3){
+      good_w_dog = "It's very friendly with other dogs so you don't need to worry if you keep it with them. ";
+    } else{
+      good_w_dog = 'Though it may not be friendly with other dogs, you should be concerned if you keep it with other dogs.';
+    }
+  }
+
+  void dog_review(){
+
+  }
 
   @override
   Widget build(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context);
     final isDarkMode = themeManager.themeMode == ThemeMode.dark;
     final fontSize = themeManager.fontSize;
-    var containerWidth = MediaQuery.of(context).size.width *0.4;
-    var containerHeight = MediaQuery.of(context).size.height*0.1;
+    var containerWidth = MediaQuery.of(context).size.width *0.75;
+    var containerHeight = MediaQuery.of(context).size.height*0.15;
+    dog_description();
+    goodWithChild();
+    goodWithDog();
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: AppBar(
-          backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          title: Text(widget.dog.name),
-        ),
+      appBar: AppBar(
+
       ),
 
       body: Stack(
-        children: [
+        children: <Widget> [
+          
           // chứa ảnh của chó
-          Container(
-            height: MediaQuery.of(context).size.height*0.35,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(widget.dog.imageUrl)
-              )
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.height*0.45,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(widget.dog.imageUrl)
+                )
+              ),
             ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               padding: EdgeInsets.only(top: 20),
-              height: MediaQuery.of(context).size.height*0.614,
+              height: MediaQuery.of(context).size.height*0.55,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-                color: !isDarkMode ? Colors.white : Colors.black
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                color: !isDarkMode ? Colors.white : Colors.black,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3)
+                  )
+                ]
               ),
-              child: SingleChildScrollView(
+              child: Container(
+                margin: EdgeInsets.only(top: 70, left: 30, right: 30, bottom: 10),
                 child: Column(
                   children: [
-                    Container(
-                      height:60 ,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: !isDarkMode? Color.fromARGB(255, 243, 220, 105) : Color(0xFF001F3F)
-                      ),
-                      margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-
-                      // Phần thêm vào mục yêu thích
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 5),
-                            child:BigText(text: 'Add to your favourite?'),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: Column(
+                            children: [
+                              const Text(
+                                'Weight',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18
+                                ),
+                              ),
+                              Container(
+                                height: 50,
+                                width: 100,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 3,
+                                      offset: Offset(3, 3)
+                                    )
+                                  ]
+                                ),
+                                child:  Text(
+                                  '${widget.dog.minWeightMale} - ${widget.dog.maxWeightMale}',
+                                  style: const TextStyle(
+                                    color: Colors.orange,
+                                    fontSize: 16
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                          LikeButton(
-                            size: 50,
-                            isLiked: isLiked,
-                            onTap: _toggleFavorite,
-                            // onTap: (isLiked) {
-
-                            // },
-                          )
-                        ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Height',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18
+                                ),
+                              ),
+                              Container(
+                                height: 50,
+                                width: 100,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 3,
+                                      offset: Offset(3, 3)
+                                    )
+                                  ]
+                                ),
+                                child: Text(
+                                  '${widget.dog.minHeightMale} - ${widget.dog.maxHeighMale}',
+                                  style: TextStyle(
+                                    color: Colors.orange,
+                                    fontSize: 16
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Life',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18
+                                ),
+                              ),
+                              Container(
+                                height: 50,
+                                width: 100,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 3,
+                                      offset: Offset(3, 3)
+                                    )
+                                  ]
+                                ),
+                                child: Text(
+                                  '${widget.dog.minLifeExpectancy} - ${widget.dog.maxLifeExpectancy}',
+                                  style: TextStyle(
+                                    color: Colors.orange,
+                                    fontSize: 16
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      color: Colors.red,
+                    ),
+                    Text(
+                      'Description',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24
                       ),
                     ),
-                    // Chứa thông tin của chó
-                    Wrap(
-                          direction: Axis.horizontal,
-                          children: <Widget> [
-                            Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text( 
-                                      "Life expectancy", 
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.bold
-                                      ),),
-                                    Text( 
-                                      '${widget.dog.minLifeExpectancy}' ' - ' '${widget.dog.maxLifeExpectancy}' ' years',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ),
-                                      )
-                                  ],
-                                ),
-                            ),
-                            Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Trainability",
-                                      style:TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: fontSize
-                                      ) ,),
-                                    SmallText(text: '${widget.dog.trainability}' ' /5.0')
-                                  ],
-                                ),
-                              ),
-                            Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text( "Height male", style: TextStyle(
-                                      fontSize: fontSize,
-                                      fontWeight: FontWeight.bold
-                                    ),),
-                                    Text(
-                                      '${widget.dog.minHeightMale}' ' - ' '${widget.dog.maxHeighMale}' ' fts',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("Height female",
-                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: fontSize
-                                     ) ,),
-                                    Text('${widget.dog.minHeightFemale}' ' - ' '${widget.dog.maxHeightFemale}' ' fts',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ) ,)
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Weight male",
-                                       style: TextStyle(
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.bold
-                                       ) ,),
-                                    Text(
-                                      '${widget.dog.minWeightMale}' ' - ' '${widget.dog.maxWeightMale}' ' kgs',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ),)
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Weight female",
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.bold
-                                      ),),
-                                    Text(
-                                      '${widget.dog.minWeightFemale}' ' - ' '${widget.dog.maxWeightFemale}' ' kgs',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ),)
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Good with children",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: fontSize
-                                      ),),
-                                    Text(
-                                      '${widget.dog.goodWithChildren}' ' /5.0',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ),)
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Good with other dog",
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.bold
-                                      ),),
-                                    Text(
-                                      '${widget.dog.goodWithOtherDog}' ' /5.0',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ),)
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Playfulness",
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.bold
-                                      ),),
-                                    Text(
-                                      '${widget.dog.playfulness}' ' /5.0',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ),)
-                                  ],
-                                ),
-                              ),
-
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: containerHeight,
-                                width: containerWidth,
-                                decoration: BoxDecoration(
-                                  color: !isDarkMode ? Color(0xFFFFDAC1) : Color(0xFF001F3F) ,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Energy",
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.bold
-                                      ),),
-                                    Text(
-                                      '${widget.dog.energy}' ' /5.0',
-                                      style: TextStyle(
-                                        fontSize: fontSize
-                                      ),)
-                                  ],
-                                ),
-                              ),
-                          ],
-                        )
+                    SizedBox(height: 20,),
+                    Text(
+                      '$good_w_child',
+                      style: TextStyle(
+                        fontSize: 16
+                      ),
+                    ),
+                    Text(
+                      '$good_w_dog',
+                      style: TextStyle(
+                        fontSize: 16
+                      ),
+                    ),
                   ],
                 ),
-              )
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: containerWidth,
+              height: containerHeight,
+              margin: EdgeInsets.only(left: 50, right: 50, bottom: 130),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), 
+                ),
+                ]
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 10, top: 20, bottom: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${widget.dog.name}',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.ellipsis
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '$dog_des',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10, top: 20, bottom: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LikeButton(
+                              size: 50,
+                              isLiked: isLiked,
+                              onTap: _toggleFavorite,
+                             ),
+                      ],
+                    ) ,
+                  )
+                ], 
+              ),
             ),
           )
         ],
