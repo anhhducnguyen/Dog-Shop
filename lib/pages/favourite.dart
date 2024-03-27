@@ -190,7 +190,7 @@ class _FavoritePageState extends State<FavoritePage> {
         },
       ),
       bottomNavigationBar: BottomNavigation(
-        currentIndex: 0,
+        currentIndex: 1,
         onTabTapped: (int index) {
           if (index == 0) {
             Navigator.pushNamed(context, "/homePage"); // Navigate to the home page
