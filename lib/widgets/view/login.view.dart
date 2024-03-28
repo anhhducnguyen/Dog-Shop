@@ -14,11 +14,16 @@ class LoginView extends StatelessWidget {
 
   Future<void> _saveUserIdToFirestore(String userId) async {
     try {
-      await FirebaseFirestore.instance.collection('users').doc(userId).set({
-        'userid': userId,
-      });
+      // Kiểm tra xem userid đã tồn tại trong Firestore hay không
+      final snapshot = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      if (!snapshot.exists) {
+        // Nếu userid chưa tồn tại, thực hiện lưu userid vào Firestore
+        await FirebaseFirestore.instance.collection('users').doc(userId).set({
+          'userid': userId,
+        });
+      }
     } catch (error) {
-      print('Error saving userId to Firestore: $error');
+      print('Lỗi không lưu được ID: $error');
     }
   }
 
