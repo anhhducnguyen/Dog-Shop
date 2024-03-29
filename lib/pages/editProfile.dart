@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:home/widgets/view/widgets/text.form.global.dart';
@@ -7,6 +9,19 @@ import '../Firebase_Authentication/firebase_auth.dart';
 import '/models/theme_manager.dart';
 import '/widgets/components/myBottom.dart';
 
+class FirebaseAuthService {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  User? getCurrentUser() {
+    try {
+      return _firebaseAuth.currentUser;
+    } catch (error) {
+      print('Lỗi khi lấy người dùng hiện tại: $error');
+      return null;
+    }
+  }
+}
+
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({Key? key}) : super(key: key);
   FirebaseAuthService _auth = FirebaseAuthService();
@@ -15,11 +30,23 @@ class EditProfileScreen extends StatelessWidget {
   final TextEditingController addresController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
+  Future<void> _saveUserInforToFirestore(String userId) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(userId).set({
+        'name': nameController.text,
+        'phone': phoneController.text,
+        'address': addresController.text,
+        'email': emailController.text,
+      }, SetOptions(merge: true)); // Sử dụng merge để cập nhật tài liệu hiện có nếu có, hoặc tạo mới nếu chưa có
+    } catch (error) {
+      print('Lỗi không lưu được thông tin: $error');
+    }
+  }
+
 
   Color getLogoutButtonColor(BuildContext context, bool isDarkMode) {
     return isDarkMode ? Colors.purple.shade800 : Colors.blue.shade400;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +132,12 @@ class EditProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    await _auth.signOut();
-                    Navigator.of(context).popAndPushNamed("/");
+                    final currentUser = _auth.getCurrentUser();
+                    if (currentUser != null) {
+                      await _saveUserInforToFirestore(currentUser.uid);
+                      // Gọi Navigator để quay về trang trước đó hoặc trang chính
+                      Navigator.of(context).pop();
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(15),

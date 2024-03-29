@@ -243,14 +243,10 @@ Future<void> fetchData() async {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Hi, Đức Anh",
+            const Text("Wellcome!",
               style: TextStyle(
                 color: Colors.black,
               ),
-            ),
-            Text(
-              "How do you feel today?",
-              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         ),    
