@@ -123,7 +123,7 @@ class EditProfileScreen extends StatelessWidget {
               // itemProfile('Email', '21012478@st.phenikaa-uni.edu.vn', CupertinoIcons.mail, isDarkMode),
               TextFormGlobal(
                     controller: emailController,
-                    text: 'Email',
+                    text: 'Email', 
                     obscure: false,
                     textInputType: TextInputType.emailAddress
               ),
