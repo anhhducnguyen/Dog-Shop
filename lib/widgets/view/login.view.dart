@@ -8,23 +8,29 @@ import '../../Firebase_Authentication/firebase_auth.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
-  FirebaseAuthService _auth = FirebaseAuthService();
+  final FirebaseAuthService _auth = FirebaseAuthService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   Future<void> _saveUserIdToFirestore(String userId) async {
     try {
-      // Kiểm tra xem userid đã tồn tại trong Firestore hay không
-      final snapshot = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      final userRef = FirebaseFirestore.instance.collection('users').doc(userId);
+      final snapshot = await userRef.get();
       if (!snapshot.exists) {
-        // Nếu userid chưa tồn tại, thực hiện lưu userid vào Firestore
-        await FirebaseFirestore.instance.collection('users').doc(userId).set({
-          'userid': userId,
-        });
+        await userRef.set({'userid': userId});
       }
     } catch (error) {
       print('Lỗi không lưu được ID: $error');
     }
+  }
+
+  void _showSnackBar(BuildContext context, String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+      ),
+    );
   }
 
   @override
@@ -38,7 +44,7 @@ class LoginView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox( height: 20),
+                const SizedBox(height: 20),
                 Container(
                   alignment: Alignment.center,
                   child: const Text(
@@ -51,7 +57,7 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox( height: 50),
+                const SizedBox(height: 50),
 
                 const Text(
                   'Đăng nhập tài khoản của bạn',
@@ -62,17 +68,17 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox( height: 15),
+                const SizedBox(height: 15),
 
                 // Email Input
                 TextFormGlobal(
-                    controller: emailController,
-                    text: 'Email',
-                    obscure: false,
-                    textInputType: TextInputType.emailAddress
+                  controller: emailController,
+                  text: 'Email',
+                  obscure: false,
+                  textInputType: TextInputType.emailAddress,
                 ),
 
-                const SizedBox( height: 10),
+                const SizedBox(height: 10),
 
                 // Password Input
                 TextFormGlobal(
@@ -82,7 +88,7 @@ class LoginView extends StatelessWidget {
                   obscure: true,
                 ),
 
-                const SizedBox( height: 10),
+                const SizedBox(height: 10),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -106,10 +112,9 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox( height: 50),
+                const SizedBox(height: 50),
 
                 MaterialButton(
-                  // alignment: Alignment.center,
                   height: 55,
                   minWidth: double.infinity,
                   elevation: 0,
@@ -118,26 +123,23 @@ class LoginView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   onPressed: () async {
-                    User? user = await _auth.loginUserWithEmailAndPassword(
-                        emailController.text, passwordController.text
-                    );
+                    final email = emailController.text.trim();
+                    final password = passwordController.text.trim();
+                    if (email.isEmpty || password.isEmpty) {
+                      _showSnackBar(context, 'Vui lòng điền đầy đủ thông tin.', Colors.red);
+                      return;
+                    }
 
+                    final user = await _auth.loginUserWithEmailAndPassword(email, password);
                     if (user != null) {
                       await _saveUserIdToFirestore(user.uid);
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Đã đăng nhập thành công."),
-                        backgroundColor: Colors.green,
-                      ));
-
-                      // Navigator.pushNamed(context, "/homePage");
-                      Navigator.pushReplacement( 
+                      _showSnackBar(context, 'Đã đăng nhập thành công.', Colors.green);
+                      Navigator.pushReplacement(
                         context,
-                         MaterialPageRoute(builder: (context) => HomePage())); // chuyển trang không cho phép quay lại login từ trang chủ
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Có lỗi đăng nhập."),
-                        backgroundColor: Colors.red,
-                      ));
+                      _showSnackBar(context, 'Có lỗi đăng nhập.', Colors.red);
                     }
                   },
                   child: Padding(
@@ -155,7 +157,7 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox( height: 40),
+                const SizedBox(height: 40),
 
                 SocialLogin(),
               ],
@@ -170,9 +172,7 @@ class LoginView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Chưa có tài khoản?'
-            ),
+            Text('Chưa có tài khoản?'),
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, '/register');
@@ -191,5 +191,3 @@ class LoginView extends StatelessWidget {
     );
   }
 }
-
-    

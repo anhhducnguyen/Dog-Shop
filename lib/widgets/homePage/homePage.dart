@@ -92,7 +92,7 @@ Future<void> fetchData() async {
     'Husky',
     'Bolognese',
     'Kuvasz',
-    'Labrador Retriever', // Thêm các tên loài chó mới vào đây
+    'Labrador Retriever', 
     'German Shepherd',
     'Golden Retriever',
     'Bulldog',
@@ -101,33 +101,33 @@ Future<void> fetchData() async {
   ];
 
   var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
-  var client = http.Client();
+  var client = http.Client(); //  request to API
 
   try {
     var requests = <Future>[];
-    var random = Random();
+    var random = Random(); 
     var selectedDogNames = <String>{};
 
     while (selectedDogNames.length < 10) {
-      var randomIndex = random.nextInt(dogNames.length);
+      var randomIndex = random.nextInt(dogNames.length); // random figer
       var name = dogNames[randomIndex];
 
-      if (!selectedDogNames.contains(name)) {
+      if (!selectedDogNames.contains(name)) { // check list selectedDogNames
         selectedDogNames.add(name);
 
         var apiURL = 'https://api.api-ninjas.com/v1/dogs?name=$name';
         var headers = {'X-Api-Key': apiKey};
         var request = client.get(Uri.parse(apiURL), headers: headers);
-        requests.add(request);
+        requests.add(request); // add requests enter list requests
       }
     }
 
-    var responses = await Future.wait(requests);
+    var responses = await Future.wait(requests); // waiting requests completed
 
-    for (var response in responses) {
+    for (var response in responses) { 
       if (response.statusCode == 200) {
-        var jsonData = jsonDecode(response.body);
-        var dog = Dog(
+        var jsonData = jsonDecode(response.body); // decryption json data
+        var dog = Dog( //json data create class Dog
           name: jsonData[0]['name'],
           imageUrl: jsonData[0]['image_link'],
           minLifeExpectancy: double.parse(jsonData[0]['min_life_expectancy'].toString()),
@@ -163,74 +163,6 @@ Future<void> fetchData() async {
   }
 }
 
-//   Future<void> fetchData() async {
-//   var dogNames = [
-//     'Samoyed',
-//     'American Eskimo',
-//     'Great Pyrenees',
-//     'Akita',
-//     'Husky',
-//     'Bolognese',
-//     'Kuvasz',
-//   ];
-//   var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
-
-//   var client = http.Client();
-
-//   try {
-//     var requests = <Future>[];
-//     for (var name in dogNames) {
-//       var apiURL = 'https://api.api-ninjas.com/v1/dogs?name=$name';
-
-//       var headers = {
-//         'X-Api-Key': apiKey,
-//       };
-
-//       var request = client.get(Uri.parse(apiURL), headers: headers);
-//       requests.add(request);
-//     }
-
-//     var responses = await Future.wait(requests);
-
-//     for (var response in responses) {
-//       if (response.statusCode == 200) {
-//         var jsonData = jsonDecode(response.body);
-//         var dog = Dog(
-//           name: jsonData[0]['name'],
-//           imageUrl: jsonData[0]['image_link'],
-//           minLifeExpectancy: double.parse(jsonData[0]['min_life_expectancy'].toString()),
-//           maxLifeExpectancy: double.parse(jsonData[0]['max_life_expectancy'].toString()),
-//           trainability: double.parse(jsonData[0]['trainability'].toString()),
-//           maxHeighMale: double.parse(jsonData[0]['max_height_male'].toString()),
-//           minHeightMale: double.parse(jsonData[0]['min_height_male'].toString()),
-//           maxHeightFemale: double.parse(jsonData[0]['max_height_female'].toString()),
-//           minHeightFemale: double.parse(jsonData[0]['min_height_female'].toString()),
-//           energy: double.parse(jsonData[0]['energy'].toString()),
-//           minWeightFemale: double.parse(jsonData[0]['min_weight_female'].toString()),
-//           maxWeightFemale: double.parse(jsonData[0]['max_weight_female'].toString()),
-//           minWeightMale: double.parse(jsonData[0]['min_weight_male'].toString()),
-//           maxWeightMale: double.parse(jsonData[0]['max_weight_male'].toString()),
-//           goodWithChildren: double.parse(jsonData[0]['good_with_children'].toString()),
-//           goodWithOtherDog: double.parse(jsonData[0]['good_with_other_dogs'].toString()),
-//           playfulness: double.parse(jsonData[0]['playfulness'].toString())
-//         );
-//         setState(() {
-//           _dogs.add(dog);
-//         });
-//       } else {
-//         print('Error fetching data: ${response.statusCode}');
-//       }
-//     }
-//   } catch (e) {
-//     print('Error: $e');
-//   } finally {
-//     client.close();
-//     setState(() {
-//       _loading = false;
-//     });
-//   }
-// }
-
   @override
   Widget build(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context);
@@ -240,10 +172,10 @@ Future<void> fetchData() async {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: themeManager.appBarColor,
-        title: Column(
+        title:const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Wellcome!",
+            Text("Wellcome!",
               style: TextStyle(
                 color: Colors.black,
               ),
@@ -253,8 +185,6 @@ Future<void> fetchData() async {
         actions: [
           IconButton(
             onPressed: () {
-              // Đặt mã xử lý để mở trang thông báo ở đây
-              // Ví dụ:
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ThongBao()),
@@ -351,16 +281,10 @@ Future<void> fetchData() async {
                                 ),
                               ],
                             ),
-                            // padding: EdgeInsets.all(10),
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           
                             child: Row(
                               children: [
-                                // CircleAvatar(
-                                //   radius: 50,
-                                //   backgroundImage: NetworkImage(dog.imageUrl),
-                                //   backgroundColor: Colors.grey,
-                                // ),
                                 Container(
                                   width: 100, // Chiều rộng mong muốn
                                   height: 100, // Chiều cao mong muốn
@@ -370,7 +294,7 @@ Future<void> fetchData() async {
                                       image: NetworkImage(dog.imageUrl),
                                       fit: BoxFit.cover,
                                     ),
-                                    color: Colors.grey, // Màu nền khi hình ảnh không có sẵn
+                                    color: Colors.grey, 
                                   ),
                                 ),
                                 const SizedBox(width: 20),

@@ -144,16 +144,16 @@ class _DetailsPageState extends State<DetailsPage> {
     final themeManager = Provider.of<ThemeManager>(context);
     final isDarkMode = themeManager.themeMode == ThemeMode.dark;
     final fontSize = themeManager.fontSize;
-    var containerWidth = MediaQuery.of(context).size.width *0.75;
+    var containerWidth = MediaQuery.of(context).size.width *0.9;
     var containerHeight = MediaQuery.of(context).size.height*0.15;
     dog_description();
     goodWithChild();
     goodWithDog();
 
     return Scaffold(
-      // appBar: AppBar(
-
-      // ),
+      appBar: AppBar(
+        title: Text("Dog Information"),
+      ),
 
       body: Stack(
         children: <Widget> [
@@ -349,7 +349,7 @@ class _DetailsPageState extends State<DetailsPage> {
             child: Container(
               width: containerWidth,
               height: containerHeight,
-              margin: const EdgeInsets.only(left: 50, right: 50, bottom: 60),
+              margin: EdgeInsets.only(left: 15, right: 15, bottom: 130),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.white,

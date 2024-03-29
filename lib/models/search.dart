@@ -96,12 +96,10 @@ class _SearchState extends State<Search> {
     }
   }
 
-  Future<void> searchDog(String name, double? trainability) async {
+  Future<void> searchDog(String name) async {
     var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
     var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=$name';
-    if (trainability != null) {
-      apiUrl += '&trainability=$trainability';
-    }
+    
 
     var headers = {
       'X-Api-Key': apiKey,
@@ -154,7 +152,7 @@ class _SearchState extends State<Search> {
           ),
           onChanged: (value) {
             if (value.isNotEmpty) {
-              searchDog(value, null);
+              searchDog(value);
             } else {
               setState(() {
                 _dogs.clear();
