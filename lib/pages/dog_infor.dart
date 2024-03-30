@@ -164,7 +164,7 @@ class _DetailsPageState extends State<DetailsPage> {
             left: 0,
             right: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height*0.45,
+              height: MediaQuery.of(context).size.height*0.5,
               decoration: BoxDecoration(
                 color: Colors.black,
                 image: DecorationImage(
@@ -177,11 +177,11 @@ class _DetailsPageState extends State<DetailsPage> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 45),
               height: MediaQuery.of(context).size.height*0.55,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(35), topRight: Radius.circular(35)),
                 color: !isDarkMode ? Colors.white : Colors.black,
                 boxShadow: [
                   BoxShadow(
@@ -193,7 +193,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 ]
               ),
               child: Container(
-                margin: EdgeInsets.only(top: 70, left: 30, right: 30, bottom: 10),
+                margin: EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 10),
                 child: Column(
                   children: [
                     Row(
@@ -212,11 +212,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                               ),
                               Container(
-                                height: 50,
+                                height: 40,
                                 width: 100,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
@@ -242,7 +242,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           margin: EdgeInsets.only(bottom: 10),
                           child: Column(
                             children: [
-                              Text(
+                              const Text(
                                 'Height',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -250,11 +250,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                               ),
                               Container(
-                                height: 50,
+                                height: 40,
                                 width: 100,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
@@ -280,7 +280,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           margin: EdgeInsets.only(bottom: 10),
                           child: Column(
                             children: [
-                              Text(
+                              const Text(
                                 'Life',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -288,11 +288,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                               ),
                               Container(
-                                height: 50,
+                                height: 40,
                                 width: 100,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
@@ -316,26 +316,26 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                       ],
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.red,
                     ),
-                    Text(
+                    const Text(
                       'Description',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24
                       ),
                     ),
-                    SizedBox(height: 20,),
-                    Text(
+                    const SizedBox(height: 20,),
+                     Text(
                       '$good_w_child',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16
                       ),
                     ),
-                    Text(
+                     Text(
                       '$good_w_dog',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16
                       ),
                     ),
@@ -351,7 +351,7 @@ class _DetailsPageState extends State<DetailsPage> {
               height: containerHeight,
               margin: EdgeInsets.only(left: 15, right: 15, bottom: 130),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(15),
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(

@@ -39,29 +39,28 @@ class _SearchState extends State<Search> {
       'siberian husky',
       'dachshund',
     ];
-    var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
-
-    var client = http.Client();
-
+    var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a'; // api-key
+    var client = http.Client(); //  request to API
+    
     try {
       var requests = <Future>[];
-      for (var name in dogNames) {
+      for (var name in dogNames) { // create requests in list dogNames 
         var apiURL = 'https://api.api-ninjas.com/v1/dogs?name=$name';
 
         var headers = {
-          'X-Api-Key': apiKey,
+          'X-Api-Key': apiKey, // key api
         };
 
         var request = client.get(Uri.parse(apiURL), headers: headers);
-        requests.add(request);
+        requests.add(request); // add requests enter list requests
       }
 
-      var responses = await Future.wait(requests);
+      var responses = await Future.wait(requests); // waiting requests completed
 
-      for (var response in responses) {
+      for (var response in responses) { 
         if (response.statusCode == 200) {
-          var jsonData = jsonDecode(response.body);
-          var dog = Dog(
+          var jsonData = jsonDecode(response.body); // decryption json data
+          var dog = Dog( //json data create class Dog
             name: jsonData[0]['name'],
             imageUrl: jsonData[0]['image_link'],
             minLifeExpectancy: double.parse(jsonData[0]['min_life_expectancy'].toString()),
@@ -81,7 +80,7 @@ class _SearchState extends State<Search> {
             playfulness: double.parse(jsonData[0]['playfulness'].toString())
           );
           setState(() {
-            _dogs.add(dog);
+            _dogs.add(dog);  // add Dog enter list _dog
           });
         } else {
           print('Error fetching data: ${response.statusCode}');
@@ -97,12 +96,10 @@ class _SearchState extends State<Search> {
     }
   }
 
-  Future<void> searchDog(String name, double? trainability) async {
+  Future<void> searchDog(String name) async {
     var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
     var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=$name';
-    if (trainability != null) {
-      apiUrl += '&trainability=$trainability';
-    }
+    
 
     var headers = {
       'X-Api-Key': apiKey,
@@ -140,53 +137,7 @@ class _SearchState extends State<Search> {
       print('Error fetching data: ${response.statusCode}');
     }
   }
-//   Future<void> searchDog(String keyword, double? trainability) async {
-//   var apiKey = 'v9XMgEjkmgj8pCnVDet9cw==qJ30WkgpWQjGvW2a';
-//   var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=$keyword';
-//   if (trainability != null) {
-//     apiUrl += '&trainability=$trainability';
-//   }
-
-//   var headers = {
-//     'X-Api-Key': apiKey,
-//   };
-
-//   var response = await http.get(Uri.parse(apiUrl), headers: headers);
-
-//   if (response.statusCode == 200) {
-//     var jsonData = jsonDecode(response.body);
-//     var dogs = jsonData
-//         .where((dogData) => dogData['name'].toString().toLowerCase().startsWith(keyword.toLowerCase()))
-//         .map<Dog>((dogData) => Dog(
-//               name: dogData['name'],
-//               imageUrl: dogData['image_link'],
-//               minLifeExpectancy: double.parse(dogData['min_life_expectancy'].toString()),
-//               maxLifeExpectancy: double.parse(dogData['max_life_expectancy'].toString()),
-//               trainability: double.parse(dogData['trainability'].toString()),
-//               maxHeighMale: double.parse(dogData['max_height_male'].toString()),
-//               minHeightMale: double.parse(dogData['min_height_male'].toString()),
-//               maxHeightFemale: double.parse(dogData['max_height_female'].toString()),
-//               minHeightFemale: double.parse(dogData['min_height_female'].toString()),
-//               energy: double.parse(dogData['energy'].toString()),
-//               minWeightFemale: double.parse(dogData['min_weight_female'].toString()),
-//               maxWeightFemale: double.parse(dogData['max_weight_female'].toString()),
-//               minWeightMale: double.parse(dogData['min_weight_male'].toString()),
-//               maxWeightMale: double.parse(dogData['max_weight_male'].toString()),
-//               goodWithChildren: double.parse(dogData['good_with_children'].toString()),
-//               goodWithOtherDog: double.parse(dogData['good_with_other_dogs'].toString()),
-//               playfulness: double.parse(dogData['playfulness'].toString()),
-//             ))
-//         .toList();
-//     setState(() {
-//       _dogs.clear();
-//       _dogs.addAll(dogs);
-//     });
-//   } else {
-//     print('Error fetching data: ${response.statusCode}');
-//   }
-// }
-
-
+  
   @override
   Widget build(BuildContext context) {
      final themeManager = Provider.of<ThemeManager>(context);
@@ -201,7 +152,7 @@ class _SearchState extends State<Search> {
           ),
           onChanged: (value) {
             if (value.isNotEmpty) {
-              searchDog(value, null);
+              searchDog(value);
             } else {
               setState(() {
                 _dogs.clear();
