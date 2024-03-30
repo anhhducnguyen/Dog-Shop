@@ -102,7 +102,7 @@ class RegisterView extends StatelessWidget {
                               backgroundColor: Colors.green,
                             ));
 
-                        Navigator.pushNamed(context, "/homePage");
+                        Navigator.pushNamed(context, "/login");
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

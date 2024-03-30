@@ -367,6 +367,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 10, top: 20, bottom: 20),
+                    width: containerWidth - 100,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -375,7 +376,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.ellipsis
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         SizedBox(
