@@ -1,16 +1,77 @@
-# dog_shop
 
-A new Flutter project.
+# Dog wiki
+To solve the problem of lack of information sources about dogs, we have developed a mobile application or website with the goal of providing detailed and reliable information about every aspect of similar dog breeds. Our app is not simply a database of dog breeds, but also a useful and easily accessible resource for pet lovers.
 
-## Getting Started
+One of the main features of the app is the dog breed list, where users can learn about the most popular and rare dog breeds. Each breed is presented in a clear and attractive manner, accompanied by images and brief information about the origin, history, and distinguishing characteristics of each breed.
 
-This project is a starting point for a Flutter application.
+## Dog wiki Application Installation Instructions
+### Prerequisites
+Before you begin, ensure you have the following software installed:
 
-A few resources to get you started if this is your first Flutter project:
+1. [Android Studio](https://developer.android.com/studio?hl=vi)
+   - Workload: `Android Studio`
+2. [Firebase](https://firebase.google.com/)
+   - Ensure `Firebase` is running and you have the necessary credentials.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Step-by-Step Installation Guide
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Step 1.** Clone the Repository
+
+   First, clone the repository containing the application source code.
+
+   ```bash
+   git clone https://github.com/anhhducnguyen/Dog-Shop
+   ```
+   
+## Features of the Dog wiki
+- **Register:** Register to use the software
+- **Login:** Log in to use the software
+- **Forgot password:** Helps users retrieve their password if they do not remember the password
+- **Search Dog:** With the large number of dog breeds and diversity in user needs, having a powerful search engine makes it easy for them to find the dog that best suits them.
+- **Detailed information about dogs:** Provides detailed information about each dog breed, including history, physical characteristics, personality, exercise needs, care requirements, and common health problems.
+- **Favourite:** The favorites list feature is an important part of the application. Users can add dog breeds they are interested in to their favorites list for easy monitoring and management. Information about your favorites list can even be stored on the cloud platform so users can access it from any device and never lose it.
+- **Setting:** Helps adjust the font size, light and dark interface color to suit your needs
+
+  
+## Demo of some outstanding features of the product
+
+#### White background interface home page
+
+<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home1.jpg" width="200" alt="dog_home1" />
+
+#### Black background interface home page
+
+<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home2.jpg" width="200" alt="dog_home2" />
+
+#### Search bar for software functions
+
+<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_feature.jpg" width="200" alt="dog_feature" />
+
+#### Search species by name
+
+<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_search.jpg" width="200" alt="dog_search" />
+
+#### Settings page interface
+
+<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_setting.jpg" width="200" alt="dog_setting" />
+
+## <div align="left">Contact</div>
+
+To report bugs and request features of NAC software, please contact me for questions and discussion!
+
+<br>
+<div align="center">
+  <a href="#"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-github.png" width="3%" alt="Ultralytics GitHub"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="#"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-linkedin.png" width="3%" alt="Ultralytics LinkedIn"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="#"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-twitter.png" width="3%" alt="Ultralytics Twitter"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="#"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-youtube.png" width="3%" alt="Ultralytics YouTube"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="#"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-tiktok.png" width="3%" alt="Ultralytics TikTok"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="#"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-instagram.png" width="3%" alt="Ultralytics Instagram"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="#"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-discord.png" width="3%" alt="Ultralytics Discord"></a>
+</div>
