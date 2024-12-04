@@ -35,6 +35,8 @@ Before you begin, ensure you have the following software installed:
   
 ## Demo of some outstanding features of the product
 
+
+
 #### White background interface home page
 
 <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home1.jpg" width="200" alt="dog_home1" />
