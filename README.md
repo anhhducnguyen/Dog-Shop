@@ -35,6 +35,7 @@ Before you begin, ensure you have the following software installed:
   
 ## Demo of some outstanding features of the product
 
+https://github.com/user-attachments/assets/e96d96d2-6fa7-43b8-9fcb-29192e0878e9
 
 
 #### White background interface home page
