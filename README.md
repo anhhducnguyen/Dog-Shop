@@ -39,25 +39,28 @@ https://github.com/user-attachments/assets/e96d96d2-6fa7-43b8-9fcb-29192e0878e9
 
 https://github.com/user-attachments/assets/6376be8b-ab3a-4d49-98f4-337d83dd454f
 
-#### White background interface home page
+<p align="left">
+   
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home1.jpg" width="200" alt="dog_home1" />
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home2.jpg" width="200" alt="dog_home2" />
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_feature.jpg" width="200" alt="dog_feature" />
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_search.jpg" width="200" alt="dog_search" />
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_setting.jpg" width="200" alt="dog_setting" />
 
-<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home1.jpg" width="200" alt="dog_home1" />
+
+
+</p>
+
+#### White background interface home page
 
 #### Black background interface home page
 
-<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home2.jpg" width="200" alt="dog_home2" />
-
 #### Search bar for software functions
-
-<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_feature.jpg" width="200" alt="dog_feature" />
 
 #### Search species by name
 
-<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_search.jpg" width="200" alt="dog_search" />
-
 #### Settings page interface
 
-<img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_setting.jpg" width="200" alt="dog_setting" />
 
 ## <div align="left">Contact</div>
 
