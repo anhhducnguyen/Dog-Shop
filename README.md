@@ -35,31 +35,30 @@ Before you begin, ensure you have the following software installed:
   
 ## Demo of some outstanding features of the product
 
+#### White background interface home page, black background interface home page, search bar for software functions
+
+<p align="left">
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home1.jpg" width="200" alt="dog_home1" />
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home2.jpg" width="200" alt="dog_home2" />
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_feature.jpg" width="200" alt="dog_feature" />
+</p>
+
+#### Search species by name, Settings page interface
+
+<p align="left">
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_search.jpg" width="200" alt="dog_search" />
+   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_setting.jpg" width="200" alt="dog_setting" />
+   <img src="https://github.com/user-attachments/assets/c7e3b17d-e6b4-4c15-bca0-0d10040c8ab9" width="200" alt="dog_setting" />
+</p>
+
+#### Video demo
+
 https://github.com/user-attachments/assets/e96d96d2-6fa7-43b8-9fcb-29192e0878e9
 
 https://github.com/user-attachments/assets/6376be8b-ab3a-4d49-98f4-337d83dd454f
 
-<p align="left">
-   
-   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home1.jpg" width="200" alt="dog_home1" />
-   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_home2.jpg" width="200" alt="dog_home2" />
-   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_feature.jpg" width="200" alt="dog_feature" />
-   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_search.jpg" width="200" alt="dog_search" />
-   <img src="https://github.com/anhhducnguyen/report/blob/main/image/dog_setting.jpg" width="200" alt="dog_setting" />
 
 
-
-</p>
-
-#### White background interface home page
-
-#### Black background interface home page
-
-#### Search bar for software functions
-
-#### Search species by name
-
-#### Settings page interface
 
 
 ## <div align="left">Contact</div>
