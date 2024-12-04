@@ -37,6 +37,8 @@ Before you begin, ensure you have the following software installed:
 
 https://github.com/user-attachments/assets/e96d96d2-6fa7-43b8-9fcb-29192e0878e9
 
+https://github.com/user-attachments/assets/6376be8b-ab3a-4d49-98f4-337d83dd454f
+
 
 #### White background interface home page
 
